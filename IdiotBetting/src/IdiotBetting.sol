@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.13;
+import "forge-std/console.sol";
 
 contract IdiotBettingGame {
     /*
@@ -21,22 +22,30 @@ contract IdiotBettingGame {
 
     MaxBid private maxBid;
 
-    //uint256 private endTime;
-
     function bet() public payable {
         if (msg.value > maxBid.highestBid) {
-            uint256 time = block.timestamp;
-            maxBid = MaxBid(msg.sender, msg.value, time + 1 hours);
-            //endTime = time + 1 hours;
+            uint256 time = block.timestamp + 1 hours;
+            maxBid = MaxBid(msg.sender, msg.value, time);
+            console.log("bet() is starting");
+            console.log("current idiot : %d", maxBid.idiot);
+            console.log("maxBid : %d", maxBid.highestBid);
+            console.log("endTime : %d", time);
+            console.log("bet() is finishing \n");
         }
     }
 
     function claimPrize() public {
 //        if (msg.sender == maxBid.idiot && maxBid.endTime > block.timestamp) {
+        console.log("claimPrize() is starting");
+        console.log("current idiot : %d", msg.sender);
+        console.log("maxBidIdiot : %d", maxBid.idiot);
+        console.log("maxBid : %d", maxBid.highestBid);
+        console.log("endTime : %d", maxBid.endTime);
         require(msg.sender == maxBid.idiot && maxBid.endTime > block.timestamp);
-            address payable to = payable(msg.sender);
-            uint amount = address(this).balance;
-            to.transfer(amount);
+        address payable to = payable(msg.sender);
+        uint amount = address(this).balance;
+        to.transfer(amount);
+        console.log("claimPrize() is finishing \n");
 //        } else {
 //            revert();
 //        }

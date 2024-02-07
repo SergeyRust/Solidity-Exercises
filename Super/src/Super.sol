@@ -20,4 +20,7 @@ contract Super is HelloWorld {
     }
 
     // your code here
+    function getGreetings() public view returns (string memory) {
+        return super.greetings();
+    }
 }

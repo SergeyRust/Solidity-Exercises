@@ -11,11 +11,15 @@ contract BlockNumber {
 
     address public lastCaller;
     uint private blockNumber;
+    uint256 private lastBlockNumber;
 
     function callMe() external {
-        /// your code here
+        if (lastBlockNumber == block.number) {
+            revert();
+        }
         if (block.number != blockNumber) {
             lastCaller = msg.sender;
+            lastBlockNumber = block.number;
         } else {
             revert();
         }
