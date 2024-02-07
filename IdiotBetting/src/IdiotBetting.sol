@@ -13,11 +13,32 @@ contract IdiotBettingGame {
            period has ended. It transfers the entire balance of the contract to the winner.
     */
 
+    struct MaxBid {
+        address idiot;
+        uint256 highestBid;
+        uint256 endTime;
+    }
+
+    MaxBid private maxBid;
+
+    //uint256 private endTime;
+
     function bet() public payable {
-        // your code here
+        if (msg.value > maxBid.highestBid) {
+            uint256 time = block.timestamp;
+            maxBid = MaxBid(msg.sender, msg.value, time + 1 hours);
+            //endTime = time + 1 hours;
+        }
     }
 
     function claimPrize() public {
-        // your code here
+//        if (msg.sender == maxBid.idiot && maxBid.endTime > block.timestamp) {
+        require(msg.sender == maxBid.idiot && maxBid.endTime > block.timestamp);
+            address payable to = payable(msg.sender);
+            uint amount = address(this).balance;
+            to.transfer(amount);
+//        } else {
+//            revert();
+//        }
     }
 }

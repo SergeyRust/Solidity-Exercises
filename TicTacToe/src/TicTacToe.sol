@@ -11,6 +11,19 @@ contract TicTacToe {
     */
 
     function isWinning(uint8[3][3] memory board) public pure returns (bool) {
-        // your code here
+
+        //bool isWin = false;
+        uint256 winCount = 0;
+
+        for (uint256 i = 1; i < arr.length - 1; i++) {
+            if (arr[i] == arr[i-1] && arr[i] == arr[i+1]) {
+                return true;
+            }
+            for (uint256 j = 1; j < arr[i].length - 1; j++) {
+                sum += arr[i][j];
+            }
+        }
+
+        return false;
     }
 }

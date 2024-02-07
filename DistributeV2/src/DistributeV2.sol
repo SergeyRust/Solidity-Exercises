@@ -14,6 +14,16 @@ contract DistributeV2 {
     constructor() payable {}
 
     function distributeEther(address[] memory addresses) public {
-        // your code here
+        uint256 balance = address(this).balance;
+        uint256 length = addresses.length;
+        uint256 amount = balance / length;
+
+        for (uint256 i = 0; i < addresses.length; i++) {
+            bool call = addresses[i].call{value: amount}("");
+            if (!call) {
+                amount--;
+            }
+        }
+
     }
 }

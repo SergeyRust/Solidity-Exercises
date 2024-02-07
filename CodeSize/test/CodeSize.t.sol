@@ -12,6 +12,7 @@ contract CodeSizeTest is Test {
     }
 
     function testCodeSize() public {
+        console.log(address(codeSize).code.length);
         assertEq(
             address(codeSize).code.length > 1024,
             true,

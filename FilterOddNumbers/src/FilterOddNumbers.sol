@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: BUSL-1.1
 pragma solidity ^0.8.13;
+import "forge-std/console.sol";
 
 contract FilterOddNumbers {
     /*
@@ -15,6 +16,27 @@ contract FilterOddNumbers {
         view
         returns (uint256[] memory)
     {
-        // your code here
+        uint256 count_odd = 0;
+        for (uint256 i = 0; i < _arr.length; i++) {
+            if (_arr[i] % 2 != 0) {
+                count_odd++;
+            }
+        }
+        console.log("count_odd: %d", count_odd);
+
+        uint256 evenLength = _arr.length - count_odd;
+        console.log("evenLength: %d", evenLength);
+
+        uint256[] memory even_arr = new uint256[](evenLength);
+        uint256 evenCount = 0;
+        for (uint256 i = 0; i < _arr.length; i++) {
+            if (_arr[i] % 2 == 0) {
+                even_arr[evenCount] = _arr[i];
+                console.log("evenCount : %d , even_arr[evenCount]: %d", evenCount, even_arr[evenCount]);
+                evenCount++;
+            }
+        }
+
+        return even_arr;
     }
 }

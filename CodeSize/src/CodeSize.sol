@@ -5,4 +5,17 @@ contract CodeSize {
     /**
      * The challenge is to create a contract whose runtime code (bytecode) size is greater than 1kb but less than 4kb
      */
+    mapping(address => string) private callerData;
+
+    function addData(string calldata data) public {
+        callerData[msg.sender] = data;
+    }
+
+    function removeData() public {
+        bytes memory length = bytes(callerData[msg.sender]);
+        if ( length.length == 0 ) {
+        callerData[msg.sender] = '';
+        } else revert();
+    }
+
 }

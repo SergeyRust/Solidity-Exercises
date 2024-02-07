@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
 import "../src/FilterOddNumbers.sol";
+import "forge-std/console.sol";
 
 contract FilterOddNumbersTest is Test {
     FilterOddNumbers public filterContract;
@@ -23,8 +24,11 @@ contract FilterOddNumbersTest is Test {
 
         uint256[] memory filter1 = filterContract.filterOdd(arr1);
 
+        console.log("filter1[0]: %d", filter1[0]);
         assertEq(filter1[0], 2, "expected 2");
+        console.log("filter1[1]: %d", filter1[1]);
         assertEq(filter1[1], 4, "expected 4");
+        console.log("filter1[2]: %d", filter1[2]);
         assertEq(filter1[2], 30, "expected 30");
 
         uint256[] memory arr2 = new uint256[](10);

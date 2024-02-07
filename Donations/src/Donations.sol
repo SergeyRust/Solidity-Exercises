@@ -10,5 +10,7 @@ contract Donations {
         // the person donated
         // don't forget a person can donate
         // multiple times!
+        uint256 currentDonate = msg.value;
+        amountDonated[msg.sender] += currentDonate;
     }
 }
